@@ -32,7 +32,7 @@ private:
     Ui::MainWindow *ui;
 
     int gameType;    // 人人对战 = 1， 人机对战 = 0
-    int levelType = 0;  // 难度类型：人工智障 = 1, 人工智能 = 2, 人工智神 = 3
+    int levelType = 0;  // 难度类型：人工智障, 人工智能, 人工智神
 
     QLabel *labelLevel, *labelFirst;
     QRadioButton *radioBtnManVSCom, *radioBtnManVSMan, *radioBtnLevel1, *radioBtnLevel2, *radioBtnLevel3, *radioBtnManFirst, *radioBtnComFirst;
@@ -75,6 +75,7 @@ private:
     int currentDepth = 9;
 
     void isWin();
+    bool isDraw();
     void clearMapNum();
 
     int a_isWin();
