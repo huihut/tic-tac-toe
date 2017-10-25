@@ -15,6 +15,10 @@
 #define COL 3
 #define MAX_NUM 1000;
 
+#define AIZZ 3  // 人工智障
+#define AIZN 1  // 人工智能
+#define AIZS 0  // 人工智神
+
 namespace Ui {
 class MainWindow;
 }
@@ -31,16 +35,36 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    int gameType;    // 人人对战 = 1， 人机对战 = 0
-    int levelType = 0;  // 难度类型：人工智障, 人工智能, 人工智神
-
     QLabel *labelLevel, *labelFirst;
     QRadioButton *radioBtnManVSCom, *radioBtnManVSMan, *radioBtnLevel1, *radioBtnLevel2, *radioBtnLevel3, *radioBtnManFirst, *radioBtnComFirst;
+
+    // 棋子位置
+    struct Move
+    {
+        int x;
+        int y;
+    };
+
+    // 人人对战 = 1， 人机对战 = 0
+    int gameType;
+
+    // 难度类型：人工智障, 人工智能, 人工智神
+    int levelType = AIZZ;
+
+    //玩家
+    int player = MAN;
+    //最好的一步
+    Move bestMove;
+    //当前深度
+    int currentDepth = 9;
+
+    // 圈的棋盘
     int _cirCleMapNum[3][3] = {
         {0, 0, 0},
         {0, 0, 0},
         {0, 0, 0},
     };
+    // 叉的棋盘
     int _crossMapNum[3][3] = {
         {0, 0, 0},
         {0, 0, 0},
@@ -53,26 +77,13 @@ private:
         { 0,0,0 },
         { 0,0,0 }
     };
+
     // 临时棋盘
     int tempBoard[3][3] = {
         { 0,0,0 },
         { 0,0,0 },
         { 0,0,0 }
     };
-
-    struct Move
-    {
-        int x;
-        int y;
-
-    };
-
-    //玩家
-    int player = MAN;
-    //最好的一步
-    Move bestMove;
-    //当前深度
-    int currentDepth = 9;
 
     void isWin();
     bool isDraw();

@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
     radioBtnManFirst->setStyleSheet({"color:rgb(50,205,50)"});
     radioBtnManFirst->setGeometry(labelFirst->pos().x(), labelFirst->pos().y() + 15,100,30);
     connect(radioBtnManFirst, SIGNAL(clicked(bool)), this, SLOT(radioBtnClick()));
-    radioBtnManFirst->setChecked(true);
+    radioBtnManFirst->setChecked(true); // 默认选择人类优先
     radioBtnManFirst->setVisible(false);
 
     radioBtnComFirst = new QRadioButton(tr("电脑优先"), this);
@@ -98,8 +98,8 @@ MainWindow::MainWindow(QWidget *parent) :
     radioBtnLevel1->setStyleSheet({"color:rgb(255,160,122)"});
     radioBtnLevel1->setGeometry(labelLevel->pos().x(), labelLevel->pos().y() + 15,100,30);
     connect(radioBtnLevel1, SIGNAL(clicked(bool)), this, SLOT(radioBtnClick()));
-    levelType = 6;
-    radioBtnLevel1->setChecked(true);
+    levelType = AIZZ;
+    radioBtnLevel1->setChecked(true);   // 默认选择人工智障
     radioBtnLevel1->setVisible(false);
 
     radioBtnLevel2 = new QRadioButton(tr("人工智能"), this);
@@ -298,7 +298,6 @@ void MainWindow::clearMapNum() {
         }
     }
     currentDepth = 9;
-//    currentDepth = levelType;
 }
 
 // 多个单选响应
@@ -343,17 +342,17 @@ void MainWindow::radioBtnClick() {
     }
     else if (btn->text() == "人工智障"){
         // 减少查找步骤3步
-        levelType = 3;
+        levelType = AIZZ;
         ending();
     }
     else if (btn->text() == "人工智能"){
         // 减少查找步骤1步
-        levelType = 1;
+        levelType = AIZN;
         ending();
     }
     else if (btn->text() == "人工智神"){
         // 不减少查找步骤
-        levelType = 0;
+        levelType = AIZS;
         ending();
     }
 }
@@ -528,7 +527,6 @@ int MainWindow::a_miniMaxsearch(int depth) {
     {
         bestMove = moveList[0];
         return bestValue;
-//        moveCount = 1;
     }
 
     // 遍历棋盘上剩余的每一步，找到最优点
