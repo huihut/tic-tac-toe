@@ -6,6 +6,6 @@
 
 [tic-tac-toe/releases](https://github.com/huihut/tic-tac-toe/releases)
 
-## Demo
+## 演示
 
 ![demo.gif](images/demo.gif)
