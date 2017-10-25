@@ -8,4 +8,20 @@
 
 ## 演示
 
-![demo.gif](images/demo.gif)
+![demo](images/demo.gif)
+
+## 更换主题
+
+如：使用`tic-tac-toe\src\theme\theme3\`下三个图片替换`tic-tac-toe\src`中的三个图片即可更换主题。
+
+* 主题一
+
+  ![theme1](images/theme1.png)
+
+* 主题二
+
+  ![theme2](images/theme2.png)
+
+* 主题三
+
+  ![theme3](images/theme3.png)
