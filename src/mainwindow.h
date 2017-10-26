@@ -9,8 +9,6 @@
 
 #define COM -1
 #define MAN 1
-#define STEP 9
-#define DRAW 0
 #define ROW 3
 #define COL 3
 #define MAX_NUM 1000;
@@ -45,18 +43,23 @@ private:
         int y;
     };
 
+    // 是否为圈下子
+    bool isCircle;
+
     // 人人对战 = 1， 人机对战 = 0
     int gameType;
 
     // 难度类型：人工智障, 人工智能, 人工智神
-    int levelType = AIZZ;
+    int levelType;
 
     //玩家
-    int player = MAN;
+    int player;
+
     //最好的一步
     Move bestMove;
+
     //当前深度
-    int currentDepth = 9;
+    int currentDepth;
 
     // 圈的棋盘
     int _cirCleMapNum[3][3] = {

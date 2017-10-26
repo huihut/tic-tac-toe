@@ -6,20 +6,19 @@
 
 using namespace std;
 
-static bool isCircle;
-int step = 1;
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    isCircle(true),     // 圈优先
+    currentDepth(9),    // 当前深度为9
+    player(MAN),        // 下子方为人类
+    levelType(AIZZ)     // 难度等级为人工智障
 {
     ui->setupUi(this);
 
     this->setWindowTitle(tr("井字棋"));
     this->setFixedSize(400,300);
     this->setWindowIcon(QIcon(":/logo.png"));
-
-    isCircle = true;
 
     //棋盘
 
@@ -52,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     radioBtnManVSMan->setStyleSheet({"color:rgb(0,191,255)"});
     radioBtnManVSMan->setGeometry(labelMode->pos().x(), labelMode->pos().y() + 15,100,30);
     radioBtnManVSMan->setChecked(true);
-    gameType = 2;    // 默认为人机对战
+    gameType = 2;    // 默认选择人机对战
     connect(radioBtnManVSMan, SIGNAL(clicked(bool)), this, SLOT(radioBtnClick()));
 
     radioBtnManVSCom = new QRadioButton(tr("人机对战"), this);
@@ -264,8 +263,10 @@ bool MainWindow::isDraw(){
                 times ++;
         }
     }
+    // 平局
     if (times == 9)
-        return true;   // 平局
+        return true;
+    // 非平局
     else
         return false;
 }
@@ -276,7 +277,8 @@ void MainWindow::ending() {
     isCircle = true;
     for(it=btnList.begin();it!=btnList.end();it++)
     {
-        QPushButton *btn = *it;    // 需要把迭代器转成QPushButton
+        // 需要把迭代器转成QPushButton
+        QPushButton *btn = *it;
         btn->setStyleSheet("border-image: url(:/grid.png);");
         btn->setEnabled(true);
     }
@@ -397,10 +399,11 @@ bool MainWindow::a_isDraw()
             }
         }
     }
+    // 平局
     if (times == 9) {
         QMessageBox::information(this, tr("井字棋"), tr("平局！"), QMessageBox::Ok);
         ending();
-        return true;   // 平局
+        return true;
     }
     else
     {
@@ -412,12 +415,16 @@ bool MainWindow::a_isDraw()
 int MainWindow::a_evaluteMap() {
     int i, j;
 
+    //如果计算机赢了，返回最大值
     if (a_isWin() == COM)
-        return MAX_NUM;//如果计算机赢了，返回最大值
-    if (a_isWin() == MAN)
-        return -MAX_NUM;//如果计算机输了，返回最小值
+        return MAX_NUM;
 
-    int count = 0;//该变量用来表示评估函数的值
+    //如果计算机输了，返回最小值
+    if (a_isWin() == MAN)
+        return -MAX_NUM;
+
+    //该变量用来表示评估函数的值
+    int count = 0;
 
     //将棋盘中的空格填满自己的棋子，既将棋盘数组中的0变为1
     for (i = 0; i < 3; i++)
@@ -484,16 +491,20 @@ int MainWindow::a_getMoveList(Move moveList[]) {
             }
         }
     }
-    return moveCount; //返回一共多少个空的位置
+    //返回一共多少个空的位置
+    return moveCount;
 }
 
 // 极小极大过程
 int MainWindow::a_miniMaxsearch(int depth) {
-    int value;  //估值
-    int bestValue = 0; //最好的估值
+    //估值
+    int value;
+    //最好的估值
+    int bestValue = 0;
     int moveCount = 0;
     int i;
-    Move moveList[9];//保存可以下子的位置
+    //保存可以下子的位置
+    Move moveList[9];
     // 如果在深度未耗尽之前赢了
     if (a_isWin() == COM || a_isWin() == MAN)
     {
@@ -573,7 +584,8 @@ int MainWindow::a_miniMaxsearch(int depth) {
 
 // 电脑下子
 int MainWindow::a_com_play() {
-    a_miniMaxsearch(currentDepth);    // 可以不需要接收返回的最好值，因为已经直接改掉了bestMove
+    // 可以不需要接收返回的最好值，因为已经直接改掉了bestMove
+    a_miniMaxsearch(currentDepth);
     board[bestMove.x][bestMove.y] = COM;
     int place = (bestMove.x * 3) + bestMove.y;
     for (int i = 0; i < btnList.size(); i++) {
