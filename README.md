@@ -12,7 +12,7 @@
 
 ## 更换主题
 
-如：使用`tic-tac-toe\src\theme\theme3\`下三个图片替换`tic-tac-toe\src`中的三个图片即可更换主题。
+使用`tic-tac-toe\src\theme\theme*\`下三个图片替换`tic-tac-toe\src`中的三个图片即可更换主题。
 
 * 主题一
 

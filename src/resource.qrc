@@ -3,6 +3,6 @@
         <file>grid.png</file>
         <file>ring.png</file>
         <file>fork.png</file>
-        <file>mainlogo.png</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>

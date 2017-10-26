@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setWindowTitle(tr("井字棋"));
     this->setFixedSize(400,300);
-    setWindowIcon(QIcon(QStringLiteral("url(:/mainlogo.png);")));
+    this->setWindowIcon(QIcon(":/logo.png"));
 
     isCircle = true;
 
@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     radioBtnManVSMan->setStyleSheet({"color:rgb(0,191,255)"});
     radioBtnManVSMan->setGeometry(labelMode->pos().x(), labelMode->pos().y() + 15,100,30);
     radioBtnManVSMan->setChecked(true);
-    gameType = 2;    // 默认为人机对战，修改默认模式在此修改游戏模式
+    gameType = 2;    // 默认为人机对战
     connect(radioBtnManVSMan, SIGNAL(clicked(bool)), this, SLOT(radioBtnClick()));
 
     radioBtnManVSCom = new QRadioButton(tr("人机对战"), this);
@@ -170,7 +170,7 @@ void MainWindow::ManVSCom(QPushButton *btn)
 
     // 判断胜负
     if (player == a_isWin()) {
-       QMessageBox::information(this, NULL, tr("你赢了！"), QMessageBox::Ok);
+       QMessageBox::information(this, tr("井字棋"), tr("你赢了！"), QMessageBox::Ok);
        ending();
        return;
     }
@@ -186,7 +186,7 @@ void MainWindow::ManVSCom(QPushButton *btn)
 
     // 判断胜负
     if (player == a_isWin()) {
-       QMessageBox::information(this, NULL, tr("电脑赢了！"), QMessageBox::Ok);
+       QMessageBox::information(this, tr("井字棋"), tr("电脑赢了！"), QMessageBox::Ok);
        ending();
        return;
     }
@@ -222,33 +222,33 @@ void MainWindow::isWin() {
     if ((_cirCleMapNum[0][0] && _cirCleMapNum[0][1] && _cirCleMapNum[0][2]) ||
         (_cirCleMapNum[1][0] && _cirCleMapNum[1][1] && _cirCleMapNum[1][2]) ||
         (_cirCleMapNum[2][0] && _cirCleMapNum[2][1] && _cirCleMapNum[2][2])) {
-        QMessageBox::information(this, NULL, tr("圈赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("圈赢了！"), QMessageBox::Ok);
         ending();
     } else if ((_cirCleMapNum[0][0] && _cirCleMapNum[1][0] && _cirCleMapNum[2][0]) ||
                (_cirCleMapNum[0][1] && _cirCleMapNum[1][1] && _cirCleMapNum[2][1]) ||
                (_cirCleMapNum[0][2] && _cirCleMapNum[1][2] && _cirCleMapNum[2][2])) {
-        QMessageBox::information(this, NULL, tr("圈赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("圈赢了！"), QMessageBox::Ok);
         ending();
     } else if ((_cirCleMapNum[0][0] && _cirCleMapNum[1][1] && _cirCleMapNum[2][2]) ||
                (_cirCleMapNum[0][2] && _cirCleMapNum[1][1] && _cirCleMapNum[2][0])) {
-        QMessageBox::information(this, NULL, tr("圈赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("圈赢了！"), QMessageBox::Ok);
         ending();
     } else if ((_crossMapNum[0][0] && _crossMapNum[0][1] && _crossMapNum[0][2]) ||
                (_crossMapNum[1][0] && _crossMapNum[1][1] && _crossMapNum[1][2]) ||
                (_crossMapNum[2][0] && _crossMapNum[2][1] && _crossMapNum[2][2])) {
-        QMessageBox::information(this, NULL, tr("叉赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("叉赢了！"), QMessageBox::Ok);
         ending();
     } else if ((_crossMapNum[0][0] && _crossMapNum[1][0] && _crossMapNum[2][0]) ||
                (_crossMapNum[0][1] && _crossMapNum[1][1] && _crossMapNum[2][1]) ||
                (_crossMapNum[0][2] && _crossMapNum[1][2] && _crossMapNum[2][2])) {
-        QMessageBox::information(this, NULL, tr("叉赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("叉赢了！"), QMessageBox::Ok);
         ending();
     } else if ((_crossMapNum[0][0] && _crossMapNum[1][1] && _crossMapNum[2][2]) ||
                (_crossMapNum[0][2] && _crossMapNum[1][1] && _crossMapNum[2][0])) {
-        QMessageBox::information(this, NULL, tr("叉赢了！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("叉赢了！"), QMessageBox::Ok);
         ending();
     } else if(isDraw()) {
-        QMessageBox::information(this, NULL, tr("平局！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("平局！"), QMessageBox::Ok);
         ending();
     }
 }
@@ -398,7 +398,7 @@ bool MainWindow::a_isDraw()
         }
     }
     if (times == 9) {
-        QMessageBox::information(this, NULL, tr("平局！"), QMessageBox::Ok);
+        QMessageBox::information(this, tr("井字棋"), tr("平局！"), QMessageBox::Ok);
         ending();
         return true;   // 平局
     }
